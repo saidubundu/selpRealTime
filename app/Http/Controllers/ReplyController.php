@@ -6,6 +6,7 @@ use App\Http\Resources\QuestionResource;
 use App\Http\Resources\ReplyResource;
 use App\Models\Question;
 use App\Models\Reply;
+use App\Notifications\NewReplyNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -52,6 +53,10 @@ class ReplyController extends Controller
         //
         $reply = $question->replies()->create($request->validate(['body' => 'required']) +
             ['user_id' => Auth::id()]);
+        $user = $question->user;
+        if($reply->user_id !== $question->user_id){
+            $user->notify(new NewReplyNotification($reply));
+        }
         return redirect()->route('question.show', $question->slug);
 //       return response()->json([
 //           'reply' => new ReplyResource($reply)

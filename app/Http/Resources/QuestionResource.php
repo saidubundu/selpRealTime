@@ -22,6 +22,8 @@ class QuestionResource extends JsonResource
             'replies' => ReplyResource::collection($this->replies),
             'reply_count' => $this->replies->count(),
             'body' => $this->body,
+            'views' => $this->views,
+            'watchers' => $this->watchers,
             'created' => $this->created_at->diffForHumans(),
             'user_name' => $this->user->name,
             'user_path' => $this->user->path,

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Resources\QuestionResource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Searchable\Searchable;
 use Spatie\Searchable\SearchResult;
 
@@ -62,5 +63,27 @@ class Question extends Model implements Searchable
             $this->title,
             $this->path
         );
+    }
+
+    public function watchers()
+    {
+        return $this->hasMany(Watcher::class);
+    }
+
+    public function is_watched_by()
+    {
+        $id = Auth::id();
+        $watchers_ids = array();
+
+        foreach ($this->watchers as $w):
+            array_push($watchers_ids, $w->user_id);
+        endforeach;
+
+        if (in_array($id, $watchers_ids)){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }

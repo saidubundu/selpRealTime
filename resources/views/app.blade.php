@@ -6,6 +6,7 @@
         <meta name="description" content="Selp forum">
         <meta name="author" content="Saidu Bundu Kamara">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{{asset('favicon/favicon.ico')}}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Selp Forum</title>
@@ -18,15 +19,23 @@
         <link rel="stylesheet" href="{{ asset('css/front.css') }}">
 
         <!-- Scripts -->
+
         @routes
     </head>
     <body class="font-sans antialiased">
 
-        @inertia
+           @inertia
 
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/front.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>
+
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/front.js') }}" defer></script>
+{{--           <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"></script>--}}
+           <script>
+               (function(){
+                   $('#js-settings-btn').trigger('click');
+               })();
+           </script>
+
         <svg width="0" height="0" class="hidden">
             <symbol aria-hidden="true" data-prefix="fab" data-icon="facebook-f" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 512" id="facebook-f-brands">
                 <path fill="currentColor" d="M215.8 85H264V3.6C255.7 2.5 227.1 0 193.8 0 124.3 0 76.7 42.4 76.7 120.3V192H0v91h76.7v229h94V283h73.6l11.7-91h-85.3v-62.7c0-26.3 7.3-44.3 45.1-44.3z"></path>

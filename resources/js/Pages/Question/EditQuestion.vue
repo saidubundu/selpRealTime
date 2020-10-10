@@ -1,5 +1,5 @@
 <template>
-   <app-home>
+   <app-home :auth_user="auth_user">
        <main id="tt-pageContent">
            <div class="container">
                <div class="tt-wrapper-inner">
@@ -311,7 +311,7 @@
     export default {
         name: "EditQuestion",
         components: {AppHome},
-        props:['categories', 'question'],
+        props:['categories', 'question', 'auth_user'],
         data(){
             return{
                 form:{

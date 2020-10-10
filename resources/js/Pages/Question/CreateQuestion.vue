@@ -1,5 +1,5 @@
 <template>
-    <app-home>
+    <app-home :auth_user="auth_user">
         <main id="tt-pageContent">
             <div class="container">
                 <div class="tt-wrapper-inner">
@@ -10,7 +10,7 @@
                         <div class="form-group">
                             <label for="inputTopicTitle">Topic Title</label>
                             <div class="tt-value-wrapper">
-                                <input type="text" name="name" v-model="form.title" class="form-control" id="inputTopicTitle" placeholder="Subject of your topic">
+                                <input type="text" name="name" v-model="form.title" class="form-control" id="inputTopicTitle" placeholder="Subject of your topic" required>
                                 <span class="tt-value-input">99</span>
                             </div>
                             <div class="tt-note">Describe your topic well, while keeping the subject as short as possible.</div>
@@ -90,13 +90,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea name="message" v-model="form.body" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+                                <textarea name="message" v-model="form.body" class="form-control" rows="5" placeholder="Lets get started" required></textarea>
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="inputTopicTitle">Category</label>
-                                        <select class="form-control" v-model="form.category_id">
+                                        <select class="form-control" v-model="form.category_id" required>
                                             <option value="Select">Select</option>
                                             <option v-for="category in categories" :key="category.id" :value="category.id">{{category.name}}</option>
                                         </select>
@@ -311,7 +311,7 @@
     export default {
         name: "CreateQuestion",
         components: {AppHome},
-        props:['categories'],
+        props:['categories', 'auth_user'],
         data(){
             return{
                 form:{

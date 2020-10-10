@@ -1,10 +1,12 @@
 <template>
     <div class="tt-item">
+        <inertia-link :href="$route('user.show', data.user_id)">
         <div class="tt-col-avatar">
             <svg class="tt-icon">
                 <use :xlink:href="classes"></use>
             </svg>
         </div>
+        </inertia-link>
         <div class="tt-col-description">
             <h6 class="tt-title"><inertia-link :href="$route('question.show', data.slug)">
                 {{data.title}}
@@ -12,7 +14,7 @@
             <div class="row align-items-center no-gutters">
                 <div class="col-11">
                     <ul class="tt-list-badge">
-                        <li class="show-mobile"><a href="#"><span class="tt-color04 tt-badge">{{data.category}}</span></a></li>
+                        <li class="show-mobile"><a href="#"><span :class="categoryClass">{{data.category}}</span></a></li>
                         <li><a v-if="solved" href="#"><span class="tt-badge">Solved</span></a></li>
 
                     </ul>
@@ -22,10 +24,9 @@
                 </div>
             </div>
         </div>
-        <div class="tt-col-category"><span class="tt-color04 tt-badge">{{data.category}}</span></div>
-        <div class="tt-col-value  hide-mobile">308</div>
+        <div class="tt-col-category"><span :class="categoryClass">{{data.category}}</span></div>
         <div class="tt-col-value tt-color-select  hide-mobile">{{data.reply_count}}</div>
-        <div class="tt-col-value  hide-mobile">8.3k</div>
+        <div class="tt-col-value  hide-mobile">{{data.views}}</div>
         <div class="tt-col-value hide-mobile">{{data.created}}</div>
     </div>
 </template>
@@ -38,6 +39,13 @@
         computed:{
             classes(){
                 return '#icon-ava-' + this.data.author[0].toLowerCase()
+            },
+
+            categoryClass(){
+
+                    return `tt-color0${this.data.category_id} tt-badge`
+
+
             },
 
             solved(){

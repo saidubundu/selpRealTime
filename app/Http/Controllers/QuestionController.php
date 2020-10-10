@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\QuestionRequest;
 use App\Http\Resources\QuestionResource;
+use App\Http\Resources\UserResource;
 use App\Models\Category;
 use App\Models\Question;
 use App\Models\Reply;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -18,7 +20,7 @@ class QuestionController extends Controller
     public function __construct()
     {
 
-        $this->middleware('auth:sanctum', ['except' => ['index', 'show']]);
+        $this->middleware('auth:sanctum', ['except' => ['index', 'show', 'user']]);
     }
 
     /**
@@ -37,12 +39,16 @@ class QuestionController extends Controller
                     'slug' => $question->slug,
                     'path' => $question->path,
                      'body' => $question->body,
+                    'views' => $question->views,
+                    'likes' => $question->like,
                     'created' => $question->created_at->diffForHumans(),
                     'category'=> $question->category->name,
+                    'category_id'=> $question->category->id,
                     'author' => $question->user->name,
                     'reply_count' => $question->replies->count(),
                     'best_reply' => $question->best_reply_id,
-                    'user_path' => $question->user->path
+                    'user_path' => $question->user->path,
+                    'user_id' => $question->user->id
 
                 ];
             }),
@@ -94,16 +100,11 @@ class QuestionController extends Controller
     public function show(Question $question, Reply $reply)
     {
         //
+        $question->increment('views');
         return Inertia::render('Question/ReadQuestion', [
              'question' => new QuestionResource($question),
-            'auth_user' => function () {
-                return [
-                    'user' => Auth::user() ? [
-                        'id' => Auth::user()->id,
-                        'first_name' => Auth::user()->name,
-                    ] : null
-                ];
-            },
+            'auth_user' => Auth::user(),
+
 //            'can' => [
 //                'edit_question' => Auth::user()->can('update', $question),
 //                'delete_question' => Auth::user()->can('delete', $question),
@@ -132,6 +133,7 @@ class QuestionController extends Controller
                 ];
             }),
             'question' => $question,
+            'auth_user' => Auth::user(),
         ]);
     }
 
@@ -162,5 +164,13 @@ class QuestionController extends Controller
         $this->authorize('delete', $question);
         $question->delete();
         return Redirect::route('question.index');
+    }
+
+    public function user(User $user)
+    {
+        return Inertia::render('User/Index',[
+            'users' => new UserResource($user),
+            'auth_user' => Auth::user(),
+        ]);
     }
 }

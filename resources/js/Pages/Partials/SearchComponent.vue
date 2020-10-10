@@ -28,7 +28,6 @@
                                 <inertia-link :href="result.url">
                                 <h6 class="tt-title">{{result.title}}</h6>
                                 </inertia-link>
-
                         </li>
                     </ul>
                 </div>

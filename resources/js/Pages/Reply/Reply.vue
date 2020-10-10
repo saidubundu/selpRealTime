@@ -1,5 +1,5 @@
 <template>
-    <div class="tt-item">
+    <div :class="markedClass">
         <div class="tt-single-topic">
             <div class="tt-item-header pt-noborder">
                 <div class="tt-item-info info-top">
@@ -83,6 +83,15 @@
             canDelete(){
                 if(this.user){
                     return this.user.id == this.data.user_id
+                }
+            },
+
+            markedClass(){
+                if (this.marked){
+                    return 'tt-item tt-wrapper-success'
+                }
+                else {
+                    return 'tt-item'
                 }
             }
         },

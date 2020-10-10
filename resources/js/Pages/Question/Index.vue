@@ -1,15 +1,14 @@
 <template>
-    <app-home>
+    <app-home :auth_user="auth_user">
         <main id="tt-pageContent" class="tt-offset-small">
             <div class="container">
                 <div class="tt-topic-list">
                     <div class="tt-list-header">
                         <div class="tt-col-topic">Topic</div>
                         <div class="tt-col-category">Category</div>
-                        <div class="tt-col-value hide-mobile">Likes</div>
                         <div class="tt-col-value hide-mobile">Replies</div>
                         <div class="tt-col-value hide-mobile">Views</div>
-                        <div class="tt-col-value">Activity</div>
+                        <div class="tt-col-value">Created</div>
                     </div>
                     <div class="tt-topic-alert tt-alert-default" role="alert">
                         <a href="#" target="_blank">4 new posts</a> are added recently, click here to load them.
@@ -31,9 +30,10 @@
 <script>
     import AppHome from "../../Layouts/AppHome";
     import AllQuestions from "./AllQuestions";
+    import ToolBar from "../Partials/ToolBar";
     export default {
         name: "Index",
-        components: {AllQuestions, AppHome},
+        components: {ToolBar, AllQuestions, AppHome},
         props:['questions', 'auth_user'],
 
         data(){

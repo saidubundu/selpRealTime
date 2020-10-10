@@ -1,5 +1,5 @@
 <template>
-   <app-home>
+   <app-home :auth_user="auth_user">
        <main id="tt-pageContent" class="tt-offset-small">
            <div class="container">
                <div class="tt-tab-wrapper">
@@ -403,6 +403,7 @@
     import AppHome from "../../Layouts/AppHome";
     export default {
         name: "About",
+        props:['auth_user'],
         components: {AppHome}
     }
 </script>

@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <reply v-if="question" v-for="(reply, index) in content" :key="reply.id" :index="index" :data="reply" :user="auth_user"></reply>
+    <div class="tt-single-topic-list">
+        <reply v-if="question" v-for="(reply, index) in content" :key="reply.id" :index="index" :data="reply" :user="auth"></reply>
     </div>
 </template>
 

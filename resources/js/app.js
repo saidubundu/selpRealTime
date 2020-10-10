@@ -5,7 +5,9 @@ import Vue from 'vue';
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import { InertiaForm } from 'laravel-jetstream';
 import PortalVue from 'portal-vue';
+import PrettyCheckbox from 'pretty-checkbox-vue';
 
+Vue.use(PrettyCheckbox);
 
 Vue.use(InertiaApp);
 Vue.use(InertiaForm);

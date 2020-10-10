@@ -29,11 +29,19 @@ class AppServiceProvider extends ServiceProvider
     {
         //
         //JsonResource::withoutWrapping();
+        Inertia::share('auth_user', function () {
+            if (Auth::user()) {
+                return [
+                    'id' => Auth::user()->id,
+                    'name' => Auth::user()->name,
+                    'email' => Auth::user()->email,
+                ];
+            }
+        });
 
         Inertia::share('auth.user', function (Reply $reply){
             return[
                 'loggedIn' => Auth::user(),
-                //'accept' => Auth::user()->can('accept', $reply),
             ];
         });
     }
